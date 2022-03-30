@@ -1,0 +1,54 @@
+.DayPickerInput input{
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.DayPickerInput {
+  display: block !important;
+}
+.DayPickerInput-OverlayWrapper{
+  background-color:white !important;
+  z-index:4 !important
+  }
+.MuiToggleButtonGroup-root {
+  display: block !important;
+}
+/*  */
+.compact-picker{
+  width:auto !important
+}
+@media only screen and (max-width: 425px){
+	.canvass-container{
+    width: 250px !important;
+    height: 270px !important;
+  }
+  .canvass-container div{
+    width: 250px !important;
+    height: 250px !important;
+  }
+  canvas{
+    width: 250px !important;
+    height: 220px !important;
+  }
+
+  /* .canvass-container div{
+    width: auto !important;
+    height: auto !important;
+  }
+  canvas{
+    width: auto !important;
+    height: auto !important;
+  } */
+}

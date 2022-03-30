@@ -1,0 +1,106 @@
+html {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  
+  margin: 0 auto;
+  height: 100vh;
+}
+.previews-wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  overflow-y: scroll;
+  margin-bottom: 2rem;
+}
+.preview-container {
+  border: 5px solid transparent;
+  border-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  border-image-slice: 1;
+}
+.preview-image {
+  height: 100px;
+}
+.preview-image:hover {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 12px; /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.canvass-container {
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  /* margin-left: 1rem; */
+  /* min-width: 400px;
+  min-height: 400px; */
+}
+.canvass-container > div {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.15) 0px 8px 16px;
+}
+.overlay-image {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+}
+.left-container {
+  display: flex;
+  /* max-height: 400px;
+  max-width: 650px; */
+}
+.left-container > div {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.15) 0px 8px 16px;
+}
+.css-1munbi2 {
+  height: 100px;
+}
+.slider-container {
+  padding: 6px;
+  border-radius: 1rem;
+  background-color: #fff;
+  width: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+  max-height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+.icon-container {
+  padding: 6px;
+}
+.canvass-container2 {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  margin-left: 1rem;
+}
