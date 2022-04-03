@@ -130,12 +130,12 @@ const Login = () => {
                 </small>
                           </div>
 
-                          <a
+                          <button
                           onClick={loginSubmit}
                             className="btn btn-primary btn-user btn-block"
                           >
                             Login
-                          </a>
+                          </button>
                         </form>
 
                         <div className="text-center">

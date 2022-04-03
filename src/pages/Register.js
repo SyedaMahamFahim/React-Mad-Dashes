@@ -71,22 +71,7 @@ const Signup = () => {
     }
   };
 
-  const signup = () => {
-    // fetch('http://165.227.123.50:5000/api/signup/', {
-    //     method: 'POST',
-    //     mode: 'no-cors',
-    //     headers: {
-    //         Accept: 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         email: email,
-    //         password: password,
-    //     })
-    // });
-
-    window.alert("Signup Successful");
-  };
+ 
 
   return (
     <>

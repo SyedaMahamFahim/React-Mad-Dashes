@@ -3,11 +3,9 @@ import axios from "axios";
 import AppWrapper from "../wrapper/AppWrapper";
 import PageHeading from "../components/PageHeading/PageHeading";
 import Button from "react-bootstrap/Button";
-
 import Dropdown from "react-bootstrap/Dropdown";
 
 import DayPickerInput from "react-day-picker/DayPickerInput";
-import { format } from 'date-fns';
 
 import "react-day-picker/lib/style.css";
 import TimePicker from "react-time-picker";
@@ -125,7 +123,7 @@ class LaserSchedule extends Component {
     console.log(this.state.Sound);
     console.log(this.state.Status);
 
-    if (this.state.userToken == "") {
+    if (this.state.userToken === "") {
       console.log("Please login first");
       alert("Please login first");
     } else {
@@ -146,7 +144,7 @@ class LaserSchedule extends Component {
           Day: this.state.Day,
         })
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status ===200) {
             console.log("Saved Successful");
             alert("Saved Successful");
           } else {

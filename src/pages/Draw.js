@@ -1,16 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import AppWrapper from "../wrapper/AppWrapper";
-// import '../components/Context/GV';
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
-import Dropdown from "react-bootstrap/Dropdown";
-import Card from "react-bootstrap/Card";
 
-import Xslider from "../components/Sliders/Xslider";
-import Yslider from "../components/Sliders/Yslider";
 
-// import Iframe from 'react-iframe'
 
 import Canvas from "../components/canva/Canvas";
 import PageHeading from "../components/PageHeading/PageHeading";
@@ -61,7 +54,7 @@ class Draw extends Component {
 
     console.log(a, b);
 
-    if (this.state.userToken == "") {
+    if (this.state.userToken === "") {
       console.log("Please login first");
       alert("Please login first");
     } else {
@@ -73,7 +66,7 @@ class Draw extends Component {
           shift: b,
         })
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             console.log("Shifted successfully");
           } else {
             alert("Pattern Failed");
@@ -103,7 +96,7 @@ class Draw extends Component {
 
     console.log(JSON.stringify(Xarray));
 
-    if (this.state.userToken == "") {
+    if (this.state.userToken === "") {
       console.log("Please login first");
       alert("Please login first");
     } else {
@@ -116,7 +109,7 @@ class Draw extends Component {
           len: Xarray.length,
         })
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             console.log("Pattern Saved Successful");
           } else {
             alert("Pattern Failed");

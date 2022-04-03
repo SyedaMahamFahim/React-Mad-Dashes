@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { useHistory } from "react-router-dom";
 
 import AppWrapper from "../wrapper/AppWrapper";
 import PageHeading from "../components/PageHeading/PageHeading";

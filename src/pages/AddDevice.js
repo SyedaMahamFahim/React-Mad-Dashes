@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import AppWrapper from "../wrapper/AppWrapper";
-import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import PageHeading from "../components/PageHeading/PageHeading";
 import DetailCard from "../components/DetailCard/DetailCard";
 
