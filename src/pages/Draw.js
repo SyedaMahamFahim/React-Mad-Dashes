@@ -3,8 +3,6 @@ import axios from "axios";
 import AppWrapper from "../wrapper/AppWrapper";
 import Button from "react-bootstrap/Button";
 
-
-
 import Canvas from "../components/canva/Canvas";
 import PageHeading from "../components/PageHeading/PageHeading";
 
@@ -33,9 +31,7 @@ class Draw extends Component {
     console.log("Y : " + global.axis1);
   }
 
-  handleChange = (event) => {
-    this.setState({ pattern: event.target.value });
-  };
+
 
   handleSubmit(a, b) {
     var Xarray = [];
@@ -148,21 +144,26 @@ class Draw extends Component {
             <div className="col-lg-6">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  <h4 className="m-0 font-weight-bold text-primary">Set Laser Position</h4>
+                  <h4 className="m-0 font-weight-bold text-primary">
+                    Set Laser Position
+                  </h4>
                 </div>
                 <div className="card-body">
-                  
-
                   <div className="container mt-3">
                     <div className="row">
                       <div className="form-group">
-                        <label>Enter Pattern Name</label>
-                        <input
-                          name="name"
-                          type="text"
+                      <label>Enter Pattern Name</label>
+                        <select
                           className="form-control"
-                          onChange={this.handleChange}
-                        />
+                          onChange={(e) =>
+                            this.setState({ pattern: e.target.value })
+                          }
+                        >
+                          <option value="pattern1">Pattern 1</option>
+                          <option value="pattern2">Pattern 2</option>
+                          <option value="pattern3">Pattern 3</option>
+                        </select>
+                       
                       </div>
                     </div>
                   </div>
@@ -299,7 +300,7 @@ class Draw extends Component {
 
                   <div className="d-grid gap-2">
                     <Button
-                    className="mt-4"
+                      className="mt-4"
                       variant="primary"
                       size="lg"
                       onClick={this.handlePatternSubmit.bind(this)}
