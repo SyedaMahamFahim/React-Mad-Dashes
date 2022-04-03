@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from 'axios';
 
-const Login = () => {
+const DemoSignup = () => {
     const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
   const history = useHistory();
-  const getUserToken = localStorage.getItem("token");
   const handleValidation = (event) => {
     let formIsValid = true;
 
-    if (
-      !email.match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      )
-    ) {
+    if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
       formIsValid = false;
       setemailError("Email Not Valid");
       return false;
@@ -24,7 +19,6 @@ const Login = () => {
       setemailError("");
       formIsValid = true;
     }
-
     if (password.length < 6 || password.length > 40) {
       formIsValid = false;
       setpasswordError(
@@ -39,47 +33,61 @@ const Login = () => {
     return formIsValid;
   };
 
-  const loginSubmit = async (e) => {
+  const loginSubmit = (e) => {
     e.preventDefault();
     handleValidation();
 
-    // login();
+    if (handleValidation()) {
+      global.token = email;
+      global.auth = true;
+
+      localStorage.setItem("token", global.token);
+
+      console.log(global.token + global.auth);
+
+      
+    }
 
     if (handleValidation()) {
-      axios
-        .post("http://165.227.123.50:5000/api/login/", {
+      // signup();
+
+      if (handleValidation()) {
+        axios.post('http://165.227.123.50:5000/api/signup/', {
           email: email,
-          password: password,
+          password: password
+        }).then(res => {
+          console.log("after login success", res.data)
+          history.push("/home")
+        }).catch(err => {
+            alert(err.response.data.message )
+          console.log("login Error", err.response.data.message)
         })
-        .then((res) => {
-          console.log("after login success", res.data);
-
-          global.token = email;
-          localStorage.setItem("token", global.token);
-          console.log(global.token);
-
-          history.push("/home");
-        })
-        .catch((err) => {
-          console.log("login Error", err.response);
-          alert(
-            "We do not recognize that password / email, please make sure the details are correct and try again"
-          );
-        });
+      }
     }
   };
-  useEffect(() => {
-    
-    if (getUserToken === undefined || getUserToken === null || getUserToken === "") {
-      history.push("/");
-    }
-    else{
-      history.push("/home");
-    }
-  }, [getUserToken,history]);
+
+  const signup = () => {
+
+    // fetch('http://165.227.123.50:5000/api/signup/', {
+    //     method: 'POST',
+    //     mode: 'no-cors',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         email: email,
+    //         password: password,
+    //     })
+    // });
+
+
+    window.alert("Signup Successful");
+  }
+
   return (
-    <>
-      <div className="bg-gradient-primary" style={{ height: "100vh" }}>
+      <>
+    <div className="bg-gradient-primary" style={{ height: "100vh" }}>
         <div className="container">
           {/* <!-- Outer Row --> */}
           <div className="row justify-content-center">
@@ -94,7 +102,10 @@ const Login = () => {
                   >
                     <div
                       className="col-lg-6 d-none d-lg-block bg-login-image"
-                      style={{ height: "80vh" }}
+
+                      style={{ height: "80vh",
+                    backgroundImage:`url('https://images.unsplash.com/flagged/photo-1557427161-4701a0fa2f42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')`
+                    }}
                     ></div>
                     <div className="col-lg-6">
                       <div className="p-5">
@@ -123,19 +134,18 @@ const Login = () => {
                               className="form-control form-control-user"
                               id="exampleInputPassword"
                               placeholder="Password"
-                              onChange={(event) => setPassword(event.target.value)}
-                            />
+                              onChange={(event) => setPassword(event.target.value)} />
                              <small id="passworderror" className="text-danger form-text">
                   {passwordError}
                 </small>
                           </div>
 
-                          <a
+                          <button
                           onClick={loginSubmit}
                             className="btn btn-primary btn-user btn-block"
                           >
-                            Login
-                          </a>
+                            Submit
+                          </button>
                         </form>
                       </div>
                     </div>
@@ -146,8 +156,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
+      </>
+  )
+}
 
-export default Login;
+export default DemoSignup

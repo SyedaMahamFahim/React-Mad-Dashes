@@ -155,7 +155,7 @@ class Draw extends Component {
             <div className="col-lg-6">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  <h4 className="m-0 font-weight-bold text-primary">Options</h4>
+                  <h4 className="m-0 font-weight-bold text-primary">Set Laser Position</h4>
                 </div>
                 <div className="card-body">
                   

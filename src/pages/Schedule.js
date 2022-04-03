@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import AppWrapper from "../wrapper/AppWrapper";
 import PageHeading from "../components/PageHeading/PageHeading";
-import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
-import Card from "react-bootstrap/Card";
+
 import Dropdown from "react-bootstrap/Dropdown";
+import { DigitalTime, AnalogTime } from "react-clock-select";
 
 import DayPickerInput from "react-day-picker/DayPickerInput";
+import { format } from 'date-fns';
+// import  DayPicker  from "react-day-picker/DayPicker";
+// import 'react-day-picker/dist/style.css';
 import "react-day-picker/lib/style.css";
-
-import TimePicker from "react-bootstrap-time-picker";
-
-import ToggleDays from "../components/DayPicker/ToggleDays";
+import TimePicker from "react-time-picker";
 
 //TEST
 import { withStyles } from "@material-ui/core/styles";
@@ -57,7 +56,7 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
     padding: theme.spacing(0, 1),
     "&:not(:first-child)": {
       border: "1px solid",
-      borderColor: "#692B7C",
+      borderColor: "#0d6efd",
       borderRadius: "50%",
     },
     "&:first-child": {
@@ -70,17 +69,20 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 
 const StyledToggle = withStyles({
   root: {
-    color: "#692B7C",
+    color: "#0d6efd",
+
     "&$selected": {
       color: "white",
-      background: "#692B7C",
+      background: "#0d6efd",
+      border: "none",
     },
     "&:hover": {
-      borderColor: "#BA9BC3",
-      background: "#BA9BC3",
+      border: "none",
+      background: "#0d6efd",
+      color: "white",
     },
     "&:hover$selected": {
-      borderColor: "#BA9BC3",
+      borderColor: "white",
       background: "#BA9BC3",
     },
     minWidth: 32,
@@ -88,6 +90,7 @@ const StyledToggle = withStyles({
     height: 32,
     textTransform: "unset",
     fontSize: "0.75rem",
+    outline: "none",
   },
   selected: {},
 })(ToggleButton);
@@ -98,19 +101,18 @@ class LaserSchedule extends Component {
     this.handleDayChange = this.handleDayChange.bind(this);
     this.state = {
       name: "React",
-
-      selectedValue: "",
-      selectedValue1: "",
+      startTime: "",
+      endTime: "",
       userToken: "",
       Device: "",
       Date: "",
       Sound: "",
-      Speed: "",
+      speed: "",
       Status: false,
       pattern: "",
       Day: [0, 2, 4],
     };
-    this.onChangeValue = this.onChangeValue.bind(this);
+    // console.log("this.state.startTime",this.state.startTime)
   }
 
   componentDidMount() {
@@ -130,33 +132,23 @@ class LaserSchedule extends Component {
   handleDayChange2(event, value) {
     this.setState({ Day: value });
   }
-  //For Speed Changing
-  onChangeValue(event) {
-    console.log(event.target.value);
-    this.setState({ Speed: event.target.value });
-  }
 
-  onChangeValue1(event) {
-    console.log(event.target.value);
-    this.setState({ Sound: event.target.value });
-  }
-
-  // START TIME HANDLING
-  optionChanged = (value) => {
-    console.log(value);
-    this.setState({ selectedValue: value });
+  // Get Start time
+  getStartTime = (e, value) => {
+    console.log("hey", e);
+    let startTimeData = JSON.stringify(value);
+    // console.log(startTimeData)
+    this.setState({ startTime: JSON.parse(startTimeData) });
   };
 
-  //PATTERN HANDLING
-  patternChanged = (event) => {
-    console.log(event.target.value);
-    this.setState({ pattern: event.target.value });
+  // Get End time
+  getEndTime = (e, value) => {
+    let endTimeData = JSON.stringify(value);
+    this.setState({ endTime: JSON.parse(endTimeData) });
   };
 
-  // END TIME HANDLING
-  optionChanged1 = (value1) => {
-    console.log(value1);
-    this.setState({ selectedValue1: value1 });
+  showTimeValue = (e, value) => {
+    alert(JSON.stringify(value));
   };
 
   handleSubmit = (event) => {
@@ -188,7 +180,7 @@ class LaserSchedule extends Component {
           End_Time: this.state.selectedValue1,
           Pattern: this.state.pattern,
           Sound: this.state.Sound,
-          Speed: this.state.Speed,
+          Speed: this.state.speed,
           Status: this.state.Status,
           Day: this.state.Day,
         })
@@ -216,14 +208,16 @@ class LaserSchedule extends Component {
           <div className="row">
             <div className="col m-4">
               <div className="form-group m-4 mx-1">
-                <h5>Enter Name Pattern</h5>
-                <input
+                <h5>Select The Pattern</h5>
+                <select
                   className="form-control"
-                  type="text"
-                  value={this.state.pattern}
-                  onChange={this.patternChanged}
-                  placeholder=" Name Pattern"
-                />
+                  onChange={(e) => this.setState({ pattern: e.target.value })}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+                {this.state.pattern}
               </div>
             </div>
           </div>
@@ -233,34 +227,40 @@ class LaserSchedule extends Component {
                 <h5>Select Date</h5>
 
                 <DayPickerInput
-                  onDayChange={this.handleDayChange}
+                  onDayChange={(day)=>this.setState({ Date: day })}
                   placeholder="DD/MM/YYYY"
                   format="DD/MM/YYYY"
                 />
+                {/* <h1>{JSON.stringify(this.state.Date)}</h1> */}
+               {/* {
+                 this.state.Date != undefined || this.state.Date != null && 
+                 <>
+                 <h1>{JSON.stringify(this.state.Date)}</h1>
+                 </>
+               } */}
+                {/* { format(this.state.Date, 'PP')} */}
               </div>
             </div>
             <div className="col">
               <div className="form-group mx-3">
                 <h5>Start Time</h5>
+
                 <TimePicker
-                  value={this.state.selectedValue}
-                  onChange={this.optionChanged}
-                  start="00:00"
-                  end="23:59"
-                  step={1}
+                  onChange={(value) => this.setState({ startTime: value })}
+                  autoFocus={true}
                 />
+                {this.state.startTime}
               </div>
             </div>
             <div className="col">
               <div className="form-group mx-3">
                 <h5>End Time</h5>
                 <TimePicker
-                  value={this.state.selectedValue1}
-                  onChange={this.optionChanged1}
-                  start="00:00"
-                  end="23:59"
-                  step={1}
+                  onChange={(value) => this.setState({ endTime: value })}
+                  autoFocus={true}
                 />
+
+                {this.state.endTime}
               </div>
             </div>
           </div>
@@ -269,28 +269,23 @@ class LaserSchedule extends Component {
             <div className="col">
               <div className="form-group mx-4 my-3">
                 <h5>Sound Congfiguration</h5>
-
-                <div className="custom-control custom-radio">
+                <div>
                   <input
-                    onChange={this.onChangeValue1}
                     type="radio"
                     value="On"
                     name="sound"
-                    id="customRadio1"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label">Sound On</label>
-                </div>
-                <div className="custom-control custom-radio">
+                    onChange={() => this.setState({ Sound: "on" })}
+                  />{" "}
+                  Sound On
+                  <br />
                   <input
-                    onChange={this.onChangeValue1}
                     type="radio"
-                    id="customRadio2"
-                    className="custom-control-input"
                     value="Off"
                     name="sound"
-                  />
-                  <label className="custom-control-label">Sound Of</label>
+                    onChange={() => this.setState({ Sound: "off" })}
+                  />{" "}
+                  Sound Off <br />
+                  {this.state.Sound}
                 </div>
               </div>
             </div>
@@ -299,40 +294,32 @@ class LaserSchedule extends Component {
           <div className="row">
             <div className="col">
               <div className="form-group mx-4 my-3">
-                <h5>Select speed of motor</h5>
-
-                <div className="custom-control custom-radio">
+                <div>
+                  <h5>Select speed of motor</h5>
                   <input
-                    onChange={this.onChangeValue}
                     type="radio"
                     value="Slow"
                     name="Speed"
-                    id="customRadio1"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label">Slow</label>
-                </div>
-                <div className="custom-control custom-radio">
+                    onChange={(e) => this.setState({ speed: "Slow" })}
+                  />{" "}
+                  Slow
+                  <br />
                   <input
-                    onChange={this.onChangeValue}
                     type="radio"
                     value="Medium"
                     name="Speed"
-                    id="customRadio2"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label">Medium</label>
-                </div>
-                <div className="custom-control custom-radio">
+                    onChange={(e) => this.setState({ speed: "Medium" })}
+                  />{" "}
+                  Medium
+                  <br />
                   <input
-                    onChange={this.onChangeValue}
                     type="radio"
                     value="Fast"
                     name="Speed"
-                    id="customRadio2"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label">Fast</label>
+                    onChange={(e) => this.setState({ speed: "Fast" })}
+                  />{" "}
+                  Fast <br />
+                  {this.state.speed}
                 </div>
               </div>
             </div>
@@ -342,145 +329,7 @@ class LaserSchedule extends Component {
             <div className="col">
               <div className="form-group mx-4 my-3">
                 <h5>Select days to repeat (if any)</h5>
-                <>
-                  <StyledToggleButtonGroup
-                    size="small"
-                    arial-label="Days of the week"
-                    value={this.state.Day}
-                    onChange={(event, value) => this.setState({ Day: value })}
-                  >
-                    {DAYS.map((day, index) => (
-                      <StyledToggle
-                        key={day.key}
-                        value={index}
-                        aria-label={day.key}
-                      >
-                        {day.label}
-                      </StyledToggle>
-                    ))}
-                  </StyledToggleButtonGroup>
-                </>
 
-                <Dropdown style={{ marginTop: "0.5%", marginBottom: "0.5%" }}>
-                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                    Repeat Schedule
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      href="#/action-3"
-                      onClick={() => {
-                        this.setState({ Status: false });
-                      }}
-                    >
-                      Every week
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      href="#/action-2"
-                      onClick={() => {
-                        this.setState({ Status: true });
-                      }}
-                    >
-                      Every Week After
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </div>
-          </div>
-
-
-          <div className="row">
-              <div className="col mx-4 my-3">
-              <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
-              Save Pattern
-            </Button>
-              </div>
-          </div>
-        </div>
-
-
-
-        {/* <Container fluid>
-          <Card style={{ marginTop: "4%" }}>
-            <Card.Body className="justify-content-md-center">
-              <Card.Title>Select Date</Card.Title>
-              <DayPickerInput
-                onDayChange={this.handleDayChange}
-                style={{ marginTop: "0.5%" }}
-                placeholder="DD/MM/YYYY"
-                format="DD/MM/YYYY"
-              />
-            </Card.Body>
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <Card.Body className="justify-content-md-center">
-              <Card.Title>Start Time</Card.Title>
-              <TimePicker
-                style={{ width: "40%", marginLeft: "30%" }}
-                value={this.state.selectedValue}
-                onChange={this.optionChanged}
-                start="00:00"
-                end="23:59"
-                step={1}
-              />
-            </Card.Body>
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <Card.Body className="justify-content-md-center">
-              <Card.Title>End Time</Card.Title>
-              <TimePicker
-                style={{ width: "40%", marginLeft: "30%" }}
-                value={this.state.selectedValue1}
-                onChange={this.optionChanged1}
-                start="00:00"
-                end="23:59"
-                step={1}
-              />
-            </Card.Body>
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <div onChange={this.onChangeValue1}>
-              <input type="radio" value="On" name="sound" /> Sound On
-              <br />
-              <input type="radio" value="Off" name="sound" /> Sound Off
-            </div>
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <div onChange={this.onChangeValue}>
-              <h5>Select speed of motor</h5>
-              <input type="radio" value="Slow" name="Speed" /> Slow
-              <br />
-              <input type="radio" value="Medium" name="Speed" /> Medium
-              <br />
-              <input type="radio" value="Fast" name="Speed" /> Fast
-            </div>
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <input
-              type="text"
-              value={this.state.pattern}
-              onChange={this.patternChanged}
-              style={{
-                width: "30%",
-                alignSelf: "center",
-                marginTop: "1%",
-                marginBottom: "1%",
-              }}
-              placeholder=" Name Pattern"
-            />
-          </Card>
-
-          <Card style={{ marginTop: "2%" }}>
-            <Card.Body>
-              <Card.Title>Select days to repeat (if any)</Card.Title>
-            
-
-              <>
                 <StyledToggleButtonGroup
                   size="small"
                   arial-label="Days of the week"
@@ -497,40 +346,42 @@ class LaserSchedule extends Component {
                     </StyledToggle>
                   ))}
                 </StyledToggleButtonGroup>
-              </>
+                {this.state.Day}
 
-              <Dropdown style={{ marginTop: "0.5%", marginBottom: "0.5%" }}>
-                <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                  Repeat Schedule
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item
-                    href="#/action-3"
-                    onClick={() => {
-                      this.setState({ Status: false });
-                    }}
-                  >
-                    Every week
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    href="#/action-2"
-                    onClick={() => {
-                      this.setState({ Status: true });
-                    }}
-                  >
-                    Every Week After
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Card.Body>
-          </Card>
-
-          <div style={{ marginTop: "3%", marginBottom: "2%" }}>
-            <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
-              Save Pattern
-            </Button>
+                <Dropdown style={{ marginTop: "0.5%", marginBottom: "0.5%" }}>
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    Repeat Schedule
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      onClick={() => {
+                        this.setState({ Status: false });
+                      }}
+                    >
+                      Every week
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        this.setState({ Status: true });
+                      }}
+                    >
+                      Every Week After
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                {/* {console.log(this.state.Status)} */}
+              </div>
+            </div>
           </div>
-        </Container> */}
+
+          <div className="row">
+            <div className="col mx-4 my-3">
+              <Button variant="primary" onClick={this.handleSubmit.bind(this)}>
+                Save Pattern
+              </Button>
+            </div>
+          </div>
+        </div>
       </>
     );
   }

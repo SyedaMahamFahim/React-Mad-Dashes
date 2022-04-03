@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const DemoLogin = () => {
     const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordError, setpasswordError] = useState("");
@@ -150,4 +150,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default DemoLogin;

@@ -20,7 +20,6 @@ function App() {
         <ProtectedRoute exact path="/laserSchedule" component={LaserSchedule} />
         <ProtectedRoute exact path="/draw" component={Draw} />
         <Route exact path="/signup" component={Signup} />
-        <Route component={Login} /> 
       </Switch>
     
   );

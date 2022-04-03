@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
-import Container from 'react-bootstrap/Container';
-import Card from 'react-bootstrap/Card';
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 
-function Signup() {
-  const [password, setPassword] = useState("");
+const Signup = () => {
+    const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
   const history = useHistory();
-
   const handleValidation = (event) => {
     let formIsValid = true;
 
@@ -51,7 +45,7 @@ function Signup() {
 
       console.log(global.token + global.auth);
 
-      history.push("/login");
+      
     }
 
     if (handleValidation()) {
@@ -63,8 +57,10 @@ function Signup() {
           password: password
         }).then(res => {
           console.log("after login success", res.data)
+          history.push("/home")
         }).catch(err => {
-          console.log("login Error", err.response)
+            alert(err.response.data.message )
+          console.log("login Error", err.response.data.message)
         })
       }
     }
@@ -90,58 +86,78 @@ function Signup() {
   }
 
   return (
-    <Container className="App">
-      <div className="container">
-        <div className="row d-flex justify-content-center">
-          <Card className="col-md-4" style={{ marginTop: '2%' }}>
-            <legend>
-              <Card.Title style={{ marginTop: '1%' }}>Register Account</Card.Title>
-            </legend>
-            <form id="loginform" onSubmit={loginSubmit}>
-              <div className="form-group">
-                {/* <label>Email address</label> */}
-                <input
-                  type="email"
-                  className="form-control"
-                  id="EmailInput"
-                  name="EmailInput"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-                <small id="emailHelp" className="text-danger form-text">
+      <>
+    <div className="bg-gradient-primary" style={{ height: "100vh" }}>
+        <div className="container">
+          {/* <!-- Outer Row --> */}
+          <div className="row justify-content-center">
+            <div className="col-xl-10 col-lg-12 col-md-9">
+              <div className="card o-hidden border-0 shadow-lg my-5">
+                <div className="card-body p-0">
+                  <div
+                    className="row"
+                    style={{
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      className="col-lg-6 d-none d-lg-block bg-login-image"
+
+                      style={{ height: "80vh",
+                    backgroundImage:`url('https://images.unsplash.com/flagged/photo-1557427161-4701a0fa2f42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')`
+                    }}
+                    ></div>
+                    <div className="col-lg-6">
+                      <div className="p-5">
+                        <div className="text-center">
+                          <h1 className="h4 text-gray-900 mb-4">
+                            Welcome Back!
+                          </h1>
+                        </div>
+                        <form className="user">
+                          <div className="form-group">
+                            <input
+                              type="email"
+                              className="form-control form-control-user"
+                              id="exampleInputEmail"
+                              aria-describedby="emailHelp"
+                              placeholder="Enter Email Address..."
+                              onChange={(event) => setEmail(event.target.value)}
+                            />
+                            <small id="emailHelp" className="text-danger form-text">
                   {emailError}
                 </small>
-              </div>
-              <div className="form-group" style={{ marginTop: '2%' }}>
-                {/* <label>Password</label> */}
-                <input
-                  type="password"
-                  className="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-                <small id="passworderror" className="text-danger form-text">
+                          </div>
+                          <div className="form-group">
+                            <input
+                              type="password"
+                              className="form-control form-control-user"
+                              id="exampleInputPassword"
+                              placeholder="Password"
+                              onChange={(event) => setPassword(event.target.value)} />
+                             <small id="passworderror" className="text-danger form-text">
                   {passwordError}
                 </small>
+                          </div>
+
+                          <button
+                          onClick={loginSubmit}
+                            className="btn btn-primary btn-user btn-block"
+                          >
+                            Submit
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {/* <div className="form-group form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label">Check me out</label>
-              </div> */}
-              <button style={{ marginTop: '2%', marginBottom: '2%' }} type="submit" className="btn btn-primary">
-                Signup
-              </button>
-            </form>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
-    </Container>
-  );
+      </>
+  )
 }
-export default Signup;
+
+export default Signup

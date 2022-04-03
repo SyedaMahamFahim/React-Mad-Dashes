@@ -47,8 +47,8 @@ class AddDevice extends Component {
         .post(`http://165.227.123.50:5000/api/addDevice/`, user)
         .then((res) => {
           if (res.status == 200) {
-            console.log("Signup Successful");
-            alert("Signup Successful");
+            console.log("Device Added Successfully");
+            alert("Device Added Successfully");
           } else {
             alert("Signup Failed");
           }
@@ -56,18 +56,7 @@ class AddDevice extends Component {
           console.log(res.data);
         })
         .catch((err) => {
-          axios
-            .put(`http://165.227.123.50:5000/api/addDeviceu/`, user)
-            .then((res) => {
-              if (res.status == 200) {
-                console.log("Signup Successful");
-                alert("Signup Successful");
-              } else {
-                alert("Signup Failed");
-              }
-              console.log(res);
-              console.log(res.data);
-            });
+          console.log(err)
         });
     }
   };

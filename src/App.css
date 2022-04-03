@@ -1,4 +1,4 @@
-.DayPickerInput input{
+.DayPickerInput input,.rcs-digital-picker-input,.react-time-picker__wrapper{
   display: block;
   width: 100%;
   padding: .375rem .75rem;
@@ -8,13 +8,15 @@
   color: #212529;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid #ced4da !important;
   -webkit-appearance: none;
   appearance: none;
   border-radius: .25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-
+.react-time-picker__wrapper{
+  width: 17vw;
+}
 .DayPickerInput {
   display: block !important;
 }
@@ -25,10 +27,27 @@
 .MuiToggleButtonGroup-root {
   display: block !important;
 }
-/*  */
+/* Canvas --  */
 .compact-picker{
-  width:auto !important
+  width: 100% !important;
 }
+.canvass-container{
+  width: 100% !important;
+  height: 60vh !important;
+}
+.canvass-container div{
+  width: 100% !important;
+  height:inherit !important;
+}
+.App {
+  height: 92vh !important;
+}
+.icon-container svg{
+  font-size: 25px;
+}
+
+
+
 @media only screen and (max-width: 425px){
 	.canvass-container{
     width: 250px !important;
@@ -43,12 +62,4 @@
     height: 220px !important;
   }
 
-  /* .canvass-container div{
-    width: auto !important;
-    height: auto !important;
-  }
-  canvas{
-    width: auto !important;
-    height: auto !important;
-  } */
 }
