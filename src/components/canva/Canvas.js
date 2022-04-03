@@ -1,39 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import ReactDOM from "react-dom";
-
 import "../Context/GV";
-
-// import axios from "axios";
 import CanvasDraw from "react-canvas-draw";
-import ColorPicker from "./colorPicker";
-// import images from "./images";
 import Tools from "./tools.js";
-
 import Card from "react-bootstrap/Card";
-
 import "./styles.css";
 
 export default function Canvas() {
   const [brushColor, setBrusholor] = useState("#444");
-  const [lastPenColor, setLastPenColor] = useState("#444");
-  const [canvasImage, setCanvassImage] = useState("");
+  const [lastPenColor] = useState("#444");
+  const [canvasImage] = useState("");
   const [brushRadius, setBrushRadius] = useState(10);
-  // const [savedData, setSavedData] = useState('');
-
   const canvasRef = useRef(null);
   const canvasRef2 = useRef(null);
-  //   useEffect(() => {
-  //     setCanvassImage(images[1].largeImageURL);
-  //   }, []);
-  const handleColorChange = React.useCallback((color) => {
-    const {
-      rgb: { r, g, b, a },
-    } = color;
-    setBrusholor(`rgba(${r}, ${g}, ${b},${a})`);
-    setLastPenColor(`rgba(${r}, ${g}, ${b},${a})`);
-  }, []);
+
   const toolChange = React.useCallback(
-    (tool, size) => {
+    (tool) => {
       if (tool === "eraser") {
         setBrusholor("#ffffff");
       }
@@ -43,19 +25,13 @@ export default function Canvas() {
     },
     [lastPenColor]
   );
-  //   const handleChangeImage = id => {
-  //     const newImage = images.find(item => id === item.id);
-  //     setCanvassImage(newImage.largeImageURL);
-  //     canvasRef.current.clear();
-  //   };
+
   const saveData = () => {
     const data = canvasRef.current.getSaveData();
     const list = JSON.parse(data);
-    // let slidersValue = [{x: global.axis0, y: global.axis1}]
 
     let xcoord = [];
     let ycoord = [];
-    // global.canvasPoints.push(slidersValue,list.lines[0].points);
     const points = list.lines[0].points;
 
     points.forEach((element) => {
@@ -70,16 +46,12 @@ export default function Canvas() {
     let y = [];
 
     xcoord.forEach((element) => {
-      // console.log(xmax);
-      // console.log(element);
       var value = parseInt((element / xmax) * 180);
       x.push(value);
       global.xcord.push(value);
     });
 
     ycoord.forEach((element) => {
-      // console.log(xmax);
-      // console.log(element);
       var value = parseInt((element / ymax) * 180);
       y.push(value);
       global.ycord.push(value);
@@ -88,32 +60,12 @@ export default function Canvas() {
     console.log(global.xcord);
     console.log(global.ycord);
 
-    let coordinates = [{ x: x, y: y }];
-    // console.log(coordinates[0]);
-    // console.log(points);
-    // window.alert("Coordinates are saved : "+list);
     canvasRef2.current.loadSaveData(data);
   };
 
   return (
     <div className="App">
-      {/* <div className="previews-wrapper">
-        {images.map(picture => (
-          <div
-            key={picture.id}
-            onClick={() => handleChangeImage(picture.id)}
-            className="preview-container"
-          >
-            <img
-              className="preview-image"
-              src={picture.previewURL}
-              key={picture.id}
-              alt={picture.tag}
-            />
-          </div>
-        ))}
-      </div> */}
-      <div style={{}}>
+      <div>
         <Card className="row col-md-12 justify-content-center">
           <Tools
             setBrushRadius={setBrushRadius}

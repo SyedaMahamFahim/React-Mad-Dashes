@@ -109,6 +109,15 @@ class LaserSchedule extends Component {
     };
   }
 
+  componentDidMount() {
+    var token = localStorage.getItem("token");
+    this.setState({ userToken: token });
+    console.log("token : " + this.state.userToken);
+
+    var device = localStorage.getItem("device");
+    this.setState({ Device: device });
+    console.log("device : " + this.state.Device);
+}
 
   handleSubmit = (event) => {
     console.log(this.state.userToken);
@@ -176,7 +185,7 @@ class LaserSchedule extends Component {
                   <option value="pattern2">Pattern 2</option>
                   <option value="pattern3">Pattern 3</option>
                 </select>
-                {this.state.pattern}
+               
               </div>
             </div>
           </div>
@@ -200,7 +209,7 @@ class LaserSchedule extends Component {
                   onChange={(value) => this.setState({ startTime: value })}
                   autoFocus={true}
                 />
-                {this.state.startTime}
+               
               </div>
             </div>
             <div className="col">
@@ -211,7 +220,7 @@ class LaserSchedule extends Component {
                   autoFocus={true}
                 />
 
-                {this.state.endTime}
+                
               </div>
             </div>
           </div>
@@ -236,7 +245,7 @@ class LaserSchedule extends Component {
                     onChange={() => this.setState({ Sound: "off" })}
                   />{" "}
                   Sound Off <br />
-                  {this.state.Sound}
+                  
                 </div>
               </div>
             </div>
@@ -270,7 +279,7 @@ class LaserSchedule extends Component {
                     onChange={(e) => this.setState({ speed: "Fast" })}
                   />{" "}
                   Fast <br />
-                  {this.state.speed}
+                  
                 </div>
               </div>
             </div>
@@ -297,7 +306,7 @@ class LaserSchedule extends Component {
                     </StyledToggle>
                   ))}
                 </StyledToggleButtonGroup>
-                {this.state.Day}
+              
 
                 <Dropdown style={{ marginTop: "0.5%", marginBottom: "0.5%" }}>
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -320,7 +329,7 @@ class LaserSchedule extends Component {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
-                {/* {console.log(this.state.Status)} */}
+              
               </div>
             </div>
           </div>

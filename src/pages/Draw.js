@@ -38,7 +38,6 @@ class Draw extends Component {
     var Yarray = [];
 
     global.xcord.forEach((element) => {
-      // console.log(element)
       Xarray.push(element);
     });
 
@@ -282,15 +281,15 @@ class Draw extends Component {
                             Speed
                           </button>
                           <div className="dropdown-menu">
-                            <a className="dropdown-item" href="#">
+                            <button className="dropdown-item">
                               Slow
-                            </a>
-                            <a className="dropdown-item" href="#">
+                            </button>
+                            <button className="dropdown-item">
                               Medium
-                            </a>
-                            <a className="dropdown-item" href="#">
+                            </button>
+                            <button className="dropdown-item">
                               Fast
-                            </a>
+                            </button>
                           </div>
                         </div>
                       </div>

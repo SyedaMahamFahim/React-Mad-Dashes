@@ -28,23 +28,23 @@ class AddDevice extends Component {
     event.preventDefault();
 
     const user = {
-      Device: this.state.device,
+      device: this.state.device,
       email: this.state.userToken,
     };
 
-    localStorage.setItem("device", user.Device);
+    localStorage.setItem("device", user.device);
 
-    if (user.Device == "") {
+    if (user.device === "") {
       console.log("Enter Device");
       alert("Enter Device");
-    } else if (user.email == "") {
+    } else if (user.email === "") {
       console.log("Please Login First");
       alert("Please Login First");
     } else {
       axios
         .post(`http://165.227.123.50:5000/api/addDevice/`, user)
         .then((res) => {
-          if (res.status == 200) {
+          if (res.status === 200) {
             console.log("Device Added Successfully");
             alert("Device Added Successfully");
           } else {
@@ -94,28 +94,7 @@ class AddDevice extends Component {
           </div>
         </div>
 
-        {/* <Container>
-          <h3>
-            <Badge bg="secondary">Add Device</Badge>
-          </h3>
-
-          <form onSubmit={this.handleSubmit}>
-            <div style={{ marginTop: "4%" }}>
-              <input
-                type="text"
-                name="name"
-                onChange={this.handleChange}
-                placeholder="input your ssid"
-              />
-            </div>
-
-            <div style={{ marginTop: "2%" }}>
-              <Button type="submit" variant="primary">
-                Add
-              </Button>
-            </div>
-          </form>
-        </Container> */}
+        
       </>
     );
   }

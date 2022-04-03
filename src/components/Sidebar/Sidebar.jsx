@@ -17,9 +17,9 @@ const Sidebar = ({ sendDataToParent, toggleParent }) => {
         id="accordionSidebar"
       >
        
-        <a
+        <Link
           className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          to="/home"
         >
           <div className="sidebar-brand-icon rotate-n-15">
             <i className="fas fa-laugh-wink"></i>
@@ -27,7 +27,7 @@ const Sidebar = ({ sendDataToParent, toggleParent }) => {
           <div className="sidebar-brand-text mx-3">
           Mad Dashes 
           </div>
-        </a>
+        </Link>
 
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider my-0" />

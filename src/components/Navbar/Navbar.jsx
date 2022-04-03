@@ -36,17 +36,16 @@ const Navbar = ({ sendDataToParent }) => {
         <ul className="navbar-nav ml-auto">
           {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
           <li className="nav-item dropdown no-arrow d-sm-none">
-            <a
+            <button
               className="nav-link dropdown-toggle"
-              href="#"
               id="searchDropdown"
-              role="button"
+            
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
               <i className="fas fa-search fa-fw"></i>
-            </a>
+            </button>
             {/* <!-- Dropdown - Messages --> */}
             <div
               className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
@@ -73,11 +72,13 @@ const Navbar = ({ sendDataToParent }) => {
 
           {/* <!-- Nav Item - User Information --> */}
           <li className="nav-item dropdown no-arrow">
-            <a
+            <button
+            style={{
+              background: "white",
+    border: "none"
+            }}
               className="nav-link dropdown-toggle"
-              href="#"
               id="userDropdown"
-              role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
@@ -88,16 +89,16 @@ const Navbar = ({ sendDataToParent }) => {
               <span style={{ fontSize: "1.5rem" }}>
                 <BiUser />
               </span>
-            </a>
+            </button>
             {/* <!-- Dropdown - User Information --> */}
             <div
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
-              <a className="dropdown-item" onClick={logoutUser}>
+              <button className="dropdown-item" onClick={logoutUser}>
                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
-              </a>
+              </button>
             </div>
           </li>
         </ul>

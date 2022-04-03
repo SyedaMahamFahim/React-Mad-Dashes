@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEraser, faPen, faUndo } from "@fortawesome/free-solid-svg-icons";
+import { faEraser, faPen } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-input-slider";
 
 const Tools = ({
@@ -30,8 +30,8 @@ const Tools = ({
         <Slider
           axis="x"
           x={eraserSize * -1 + 61}
-          xmin={1}
-          xmax={60}
+          xmin={60}
+          xmax={1}
           onChange={({ x }) => {
             setBrushRadius(x * -1 + 61);
             setEraserSize(x * -1 + 61);
@@ -54,8 +54,8 @@ const Tools = ({
         <Slider
           axis="x"
           x={brushSize * -1 + 61}
-          xmin={1}
-          xmax={60}
+          xmin={60}
+          xmax={1}
           onChange={({ x }) => {
             setBrushRadius(x * -1 + 61);
             setBrushSize(x * -1 + 61);
@@ -66,7 +66,7 @@ const Tools = ({
         />
         <p style={{ marginBottom: 0, marginTop: "1px" }}>{brushSize}</p>
       </div>
-      {/* <FontAwesomeIcon icon={faUndo} onClick={() => canvasRef.current.undo()} /> */}
+      
     </div>
   );
 };
