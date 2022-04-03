@@ -137,6 +137,10 @@ const Login = () => {
                             Login
                           </a>
                         </form>
+
+                        <div className="text-center">
+                                        <Link className="small" to="/signup">Create an Account!</Link>
+                                    </div>
                       </div>
                     </div>
                   </div>

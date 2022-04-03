@@ -5,12 +5,10 @@ import PageHeading from "../components/PageHeading/PageHeading";
 import Button from "react-bootstrap/Button";
 
 import Dropdown from "react-bootstrap/Dropdown";
-import { DigitalTime, AnalogTime } from "react-clock-select";
 
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { format } from 'date-fns';
-// import  DayPicker  from "react-day-picker/DayPicker";
-// import 'react-day-picker/dist/style.css';
+
 import "react-day-picker/lib/style.css";
 import TimePicker from "react-time-picker";
 
@@ -98,7 +96,6 @@ const StyledToggle = withStyles({
 class LaserSchedule extends Component {
   constructor() {
     super();
-    this.handleDayChange = this.handleDayChange.bind(this);
     this.state = {
       name: "React",
       startTime: "",
@@ -109,47 +106,11 @@ class LaserSchedule extends Component {
       Sound: "",
       speed: "",
       Status: false,
-      pattern: "",
+      pattern: "pattern1",
       Day: [0, 2, 4],
     };
-    // console.log("this.state.startTime",this.state.startTime)
   }
 
-  componentDidMount() {
-    var token = localStorage.getItem("token");
-    this.setState({ userToken: token });
-    console.log("token : " + this.state.userToken);
-
-    var device = localStorage.getItem("device");
-    this.setState({ Device: device });
-    console.log("device : " + this.state.Device);
-  }
-
-  handleDayChange(day) {
-    this.setState({ Date: day });
-  }
-
-  handleDayChange2(event, value) {
-    this.setState({ Day: value });
-  }
-
-  // Get Start time
-  getStartTime = (e, value) => {
-    console.log("hey", e);
-    let startTimeData = JSON.stringify(value);
-    // console.log(startTimeData)
-    this.setState({ startTime: JSON.parse(startTimeData) });
-  };
-
-  // Get End time
-  getEndTime = (e, value) => {
-    let endTimeData = JSON.stringify(value);
-    this.setState({ endTime: JSON.parse(endTimeData) });
-  };
-
-  showTimeValue = (e, value) => {
-    alert(JSON.stringify(value));
-  };
 
   handleSubmit = (event) => {
     console.log(this.state.userToken);
@@ -176,8 +137,8 @@ class LaserSchedule extends Component {
             Month: JSON.stringify(this.state.Date).slice(6, 8),
             Day: JSON.stringify(this.state.Date).slice(9, 11),
           },
-          Start_Time: this.state.selectedValue,
-          End_Time: this.state.selectedValue1,
+          Start_Time: this.state.startTime,
+          End_Time: this.state.endTime,
           Pattern: this.state.pattern,
           Sound: this.state.Sound,
           Speed: this.state.speed,
@@ -213,9 +174,9 @@ class LaserSchedule extends Component {
                   className="form-control"
                   onChange={(e) => this.setState({ pattern: e.target.value })}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="pattern1">Pattern 1</option>
+                  <option value="pattern2">Pattern 2</option>
+                  <option value="pattern3">Pattern 3</option>
                 </select>
                 {this.state.pattern}
               </div>
@@ -231,14 +192,6 @@ class LaserSchedule extends Component {
                   placeholder="DD/MM/YYYY"
                   format="DD/MM/YYYY"
                 />
-                {/* <h1>{JSON.stringify(this.state.Date)}</h1> */}
-               {/* {
-                 this.state.Date != undefined || this.state.Date != null && 
-                 <>
-                 <h1>{JSON.stringify(this.state.Date)}</h1>
-                 </>
-               } */}
-                {/* { format(this.state.Date, 'PP')} */}
               </div>
             </div>
             <div className="col">
